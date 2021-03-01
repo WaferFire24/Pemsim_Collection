@@ -1,8 +1,3 @@
-#Variable#
-x = []
-y = []
-n = 0
-
 def sigma1(inp):
     arr = []
     out = 0
@@ -69,6 +64,9 @@ def inputdata():
     n = int(input('nilai n : '))
     
 #--Main Program--#
+x = []
+y = []
+n = 0
 inputdata()
 a = cariA(x,y,n)
 b = cariB(x,y,n)
@@ -76,4 +74,4 @@ print('Nilai a (konstatnta) = ', a)
 print('Nilai b (koefisien) = ', b)
 print('===Persamaan===')
 for i in range(n):
-    print('(', i ,') Y = ', a[i], ' + (', b[i], ')x')
+    print('(', i+1 ,') Y = ', a[i], ' + (', b[i], ')x')
