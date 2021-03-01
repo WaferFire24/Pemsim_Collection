@@ -1,3 +1,7 @@
+#INI ADALAH PROGRAM MENGHITUNG KORELASI#
+#Nama : Akram Muhammad Nuramadhan
+#NRP : 152018095
+#-----------------------------------------#
 def sigma1(inp):
     arr = []
     out = 0
@@ -65,8 +69,9 @@ def inputdata():
         except:
             print("Angka tidak valid!")
     n = int(input('Masukkan jumlah angka : '))
-    
-#--Main Program--#
+
+
+'''__MAIN PROGRAM__'''
 x = []
 y = []
 n = 0
