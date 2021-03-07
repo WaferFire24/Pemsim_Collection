@@ -1,5 +1,8 @@
+#INI ADALAH PROGRAM SIMULASI MONTECARLO#
+#Nama : Akram Muhammad Nuramadhan
+#NRP : 152018095
+#-----------------------------------------#
 import random
-
 def inputdata():
     while True:
         entry1 = input('Demand(s) = ')
