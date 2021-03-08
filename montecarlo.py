@@ -7,7 +7,7 @@ def inputdata():
     while True:
         entry1 = input('Demand(s) = ')
         entry2 = input('weeks : ')
-        if (entry1 == '') and (entry1 == ''):
+        if (entry1 == '') and (entry2 == ''):
                 break
         try:
             datainput.append((int(entry1),int(entry2)))
