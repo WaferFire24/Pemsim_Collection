@@ -315,7 +315,7 @@ if __name__ == '__main__':
 	ex = App()
 	sys.exit(app.exec_())
 """
-
+"""
 class kelasSatu():
     def __init__(self):
         self.X = [2]
@@ -327,3 +327,19 @@ class kelasSatu():
 
 if __name__ == '__main__':
     kelasSatu()
+"""
+
+"""
+my_list = []
+
+#append to the list
+my_list.extend(["PYTHON", "PHP"])
+
+#print
+print(my_list)
+"""
+
+x = [1,3]
+
+for i in x:
+    print(i)

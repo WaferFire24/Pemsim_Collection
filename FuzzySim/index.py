@@ -13,6 +13,14 @@ class HasilDialog(QMainWindow):
         super(HasilDialog, self).__init__()
         loadUi('UI/hasilpage.ui',self)
 
+
+        """
+
+            HOW TO PASS THE RULE VARIABLE!?!?
+
+        """
+
+
     def editLabel(self, TBB, TBA, TnBB, TnBA, Min, Max, nMin, nMax):
         #TnBB.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TnBB.setText(str(nMin))
@@ -29,7 +37,7 @@ class HasilDialog(QMainWindow):
             bawah, atas = fgw.fuzifikasi(LnMin, LnMax, nInput)
             self.lbl_mBBx.setText('μ'+str(LMin))
             self.lbl_mBAx.setText('μ'+str(LMax))
-            self.lbl_mnBBx.setText(str(FuzzyDialog().premise1_1.currentText()))
+            self.lbl_mnBBx.setText(str(bawah))
             self.lbl_mnBAx.setText(str(atas))
             print('Hasil',TPlot,bawah,atas,nInput)
             self.plotWidget1 = plt.figure()
@@ -78,31 +86,25 @@ class FuzzyDialog(QMainWindow):
         self.btnPredict.clicked.connect(self.letsPredict)
         self.btnUpdate.clicked.connect(self.updateField)
         self.FormHasil = HasilDialog()
+        self.alamatRow = [0,0,0]
+        self.arrImpl = []
 
     def letsPredict(self):
         inputx = self.SBInput1.value()
         inputy = self.SBInput2.value()
-        x=1
-        for i in range (1,4):
-            isInput = self.Tabel1.item(i,0).text() 
-            if isInput.lower() == 'input' and x==1:
-                nBB = int(self.Tabel1.item(i,3).text())
-                nBA = int(self.Tabel1.item(i,5).text())
-                BB = self.Tabel1.item(i,2).text()
-                BA = self.Tabel1.item(i,4).text()
+        x = 0
+        for i in self.alamatRow:
+            nBB = int(self.Tabel1.item(i,3).text())
+            nBA = int(self.Tabel1.item(i,5).text())
+            BB = self.Tabel1.item(i,2).text()
+            BA = self.Tabel1.item(i,4).text()
+            if x == 0:
                 self.FormHasil.drawPlot(1, self.FormHasil.lbl_BBx, self.FormHasil.lbl_BAx, self.FormHasil.lbl_Minx, self.FormHasil.lbl_Maxx, BB, BA, nBB, nBA, inputx)
                 x+=1
-            elif isInput.lower() == 'input' and x==2:
-                nBB = int(self.Tabel1.item(i,3).text())
-                nBA = int(self.Tabel1.item(i,5).text())
-                BB = self.Tabel1.item(i,2).text()
-                BA = self.Tabel1.item(i,4).text()
+            elif x == 1:
                 self.FormHasil.drawPlot(2, self.FormHasil.lbl_BBy, self.FormHasil.lbl_BAy, self.FormHasil.lbl_Miny, self.FormHasil.lbl_Maxy, BB, BA, nBB, nBA, inputy)
+                x+=1
             else:
-                nBB = int(self.Tabel1.item(i,3).text())
-                nBA = int(self.Tabel1.item(i,5).text())
-                BB = self.Tabel1.item(i,2).text()
-                BA = self.Tabel1.item(i,4).text()
                 self.FormHasil.drawPlot(3, self.FormHasil.lbl_BBz, self.FormHasil.lbl_BAz, self.FormHasil.lbl_Minz, self.FormHasil.lbl_Maxz, BB, BA, nBB, nBA, 0)
         self.FormHasil.show()
         
@@ -116,16 +118,24 @@ class FuzzyDialog(QMainWindow):
             if isInput.lower() == 'input' and x==1:
                 prem1.append(self.Tabel1.item(i,2).text())
                 prem1.append(self.Tabel1.item(i,4).text())
+                self.lblInput1.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
+                self.lblInput1.setText(self.Tabel1.item(i,1).text())
+                self.alamatRow[0] = i
                 self.tambahitem(prem1,1)
                 x+=1
             elif isInput.lower() == 'input' and x==2:
                 prem2.append(self.Tabel1.item(i,2).text())
                 prem2.append(self.Tabel1.item(i,4).text())
+                self.lblInput2.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
+                self.lblInput2.setText(self.Tabel1.item(i,1).text())
+                self.alamatRow[1] = i
                 self.tambahitem(prem2,2)
             else:
                 conq.append(self.Tabel1.item(i,2).text())
                 conq.append(self.Tabel1.item(i,4).text())
+                self.alamatRow[2] = i
                 self.tambahitem(conq,3)
+        print(self.alamatRow)
     
     def tambahitem(self, arrinput, col):
         if col == 1:
@@ -216,7 +226,7 @@ class MainDialog(QMainWindow):
         self.change()
 
     def change(self):
-        #print('Dari index: ', self.hasil)
+        print('Dari index: ', self.hasil)
         self.editvar = FuzzyDialog()
         self.editvar.writeTabel(self.hasil)
         self.editvar.show()
