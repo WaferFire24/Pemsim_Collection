@@ -9,3 +9,9 @@ def fuzifikasi(Minimum, Maximum, nilai):
         bawah = (Maximum - nilai) / (Maximum - Minimum)
         atas = (nilai - Minimum) / (Maximum - Minimum)
     return bawah, atas
+
+def implikasi(arrinput):
+    if arrinput[0] > arrinput[1]:
+        hasil = arrinput[1]
+    else:
+        hasil = arrinput[0]    
