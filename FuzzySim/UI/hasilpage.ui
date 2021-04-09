@@ -503,6 +503,25 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>280</y>
+      <width>291</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="rowCount">
+     <number>1</number>
+    </property>
+    <property name="columnCount">
+     <number>2</number>
+    </property>
+    <row/>
+    <column/>
+    <column/>
+   </widget>
    <zorder>verticalLayoutWidget_3</zorder>
    <zorder>verticalLayoutWidget</zorder>
    <zorder>verticalLayoutWidget_2</zorder>
@@ -530,6 +549,7 @@
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
    <zorder>label_11</zorder>
+   <zorder>tableWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

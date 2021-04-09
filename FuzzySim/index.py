@@ -13,14 +13,6 @@ class HasilDialog(QMainWindow):
         super(HasilDialog, self).__init__()
         loadUi('UI/hasilpage.ui',self)
 
-
-        """
-
-            HOW TO PASS THE RULE VARIABLE!?!?
-
-        """
-
-
     def editLabel(self, TBB, TBA, TnBB, TnBA, Min, Max, nMin, nMax):
         #TnBB.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TnBB.setText(str(nMin))
@@ -209,31 +201,6 @@ class FuzzyDialog(QMainWindow):
         print('sesudah = ', bawah, atas)
         return bawah, atas
 
-    """
-    def hasilR1(self):
-        prem1 = self.premise1_1.currentText()
-        prem2 = self.premise1_2.currentText()
-        conq = self.premise1_3.currentText()
-        temp = []
-        x=1
-        for i in range (1,4):
-            if self.Tabel1.item(i,0).text().lower() == 'input' and x == 1:
-                if prem1 == self.Tabel1.item(i,2).text():
-                    temp.append(int(self.Tabel1.item(i,3).text()))
-                else:
-                    temp.append(int(self.Tabel1.item(i,5).text()))
-                x+=1
-            elif self.Tabel1.item(i,0).text().lower() == 'input' and x == 2:
-                if prem2 == self.Tabel1.item(i,2).text():
-                    temp.append(int(self.Tabel1.item(i,3).text()))
-                else:
-                    temp.append(int(self.Tabel1.item(i,5).text()))
-                x+=1
-            else:
-                break
-        print(temp)
-    """
-
     def letsPredict(self):
         inputx = self.SBInput1.value()
         inputy = self.SBInput2.value()
@@ -259,6 +226,9 @@ class FuzzyDialog(QMainWindow):
                 self.FormHasil.drawPlot(3, self.FormHasil.lbl_BBz, self.FormHasil.lbl_BAz, self.FormHasil.lbl_Minz, self.FormHasil.lbl_Maxz, BB, BA, nBB, nBA, 0)
         print('Array Hasil Fuzifikasi = ',self.arrFuz)
         MClus1, MClus2 = self.impli(self.arrFuz)
+        BBRand, BARand, Defuz = fgw.defuzifikasi(int(self.Tabel1.item(self.alamatRow[2],3).text()),int(self.Tabel1.item(self.alamatRow[2],5).text()), MClus1, MClus2)
+        print('data random',BBRand,',',BARand)
+        print('Hasil Prediksi =', Defuz)
         self.FormHasil.show()
         self.close()
         
