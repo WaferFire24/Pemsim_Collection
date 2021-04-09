@@ -14,4 +14,15 @@ def implikasi(arrinput):
     if arrinput[0] > arrinput[1]:
         hasil = arrinput[1]
     else:
-        hasil = arrinput[0]    
+        hasil = arrinput[0]
+    return hasil 
+
+def komposisi(arrinput):
+    if arrinput[0] > arrinput[1]:
+        hasil = arrinput[0]
+    else:
+        hasil = arrinput[1]
+    return hasil
+
+def defuzifikasi(lower, upper):
+    pass  
