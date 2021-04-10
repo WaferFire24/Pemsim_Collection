@@ -7,11 +7,29 @@
     <x>0</x>
     <y>0</y>
     <width>942</width>
-    <height>631</height>
+    <height>617</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>942</width>
+    <height>617</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>942</width>
+    <height>617</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Aplikasi Simulasi Fuzzy Logic</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="lbl_BAx">
@@ -762,7 +780,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
