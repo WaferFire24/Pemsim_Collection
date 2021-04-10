@@ -261,16 +261,16 @@ class FuzzyDialog(QMainWindow):
             if isInput.lower() == 'input' and x==1:
                 prem1.append(self.Tabel1.item(i,2).text())
                 prem1.append(self.Tabel1.item(i,4).text())
-                self.lblInput1.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
                 self.lblInput1.setText(self.Tabel1.item(i,1).text())
+                self.lblInput1.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
                 self.alamatRow[0] = i
                 self.tambahitem(prem1,1)
                 x+=1
             elif isInput.lower() == 'input' and x==2:
                 prem2.append(self.Tabel1.item(i,2).text())
                 prem2.append(self.Tabel1.item(i,4).text())
-                self.lblInput2.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
                 self.lblInput2.setText(self.Tabel1.item(i,1).text())
+                self.lblInput2.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
                 self.alamatRow[1] = i
                 self.tambahitem(prem2,2)
             else:
@@ -317,13 +317,13 @@ class FuzzyDialog(QMainWindow):
         namavar = []
         #print(datanya)
         for i in range (3):
-            if datanya[i] == "INPUT":
+            if datanya[i].lower() == 'input':
                 namavar.append(datanya[i+3])
         #print(namavar)
-        self.lblInput1.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
         self.lblInput1.setText(namavar[0])
-        self.lblInput2.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
+        self.lblInput1.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
         self.lblInput2.setText(namavar[1])
+        self.lblInput2.setStyleSheet(" font-size: 12pt; qproperty-alignment: AlignRight; font-weight:600;")
         for i in range(6):
             for j in range(1,4):
                 self.Tabel1.setItem(j,i,QTableWidgetItem(str(datanya[0])))
@@ -390,6 +390,7 @@ class MainDialog(QMainWindow):
         #print('Dari index: ', self.hasil)
         self.editvar.show()
         self.close()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
