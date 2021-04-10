@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>190</y>
+      <y>130</y>
       <width>101</width>
       <height>61</height>
      </rect>
@@ -32,7 +32,7 @@ File</string>
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>190</y>
+      <y>130</y>
       <width>101</width>
       <height>61</height>
      </rect>
@@ -46,13 +46,27 @@ Scratch</string>
     <property name="geometry">
      <rect>
       <x>180</x>
-      <y>60</y>
+      <y>20</y>
       <width>221</width>
       <height>61</height>
      </rect>
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Fuzzy Logic Simulation&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnGetTemp">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>250</y>
+      <width>101</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>GET
+TEMPLATE</string>
     </property>
    </widget>
   </widget>

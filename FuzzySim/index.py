@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QDialog, QFileDialog, QTableWidgetItem
 from PyQt5.uic import loadUi
 import xlrd
+from xlwt import Workbook
 import FuzzyGW as fgw
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -13,14 +14,29 @@ class HasilDialog(QMainWindow):
         super(HasilDialog, self).__init__()
         loadUi('UI/hasilpage.ui',self)
 
+    def randData(self, bawah, atas, arrLow, arrUpp):
+        nData = len(arrLow)
+        self.tbl_Rand.setRowCount(nData)
+        arrLow.append(bawah)
+        arrUpp.append(atas)
+        for i in range(nData, -1, -1):
+            x=0
+            for j in range(2):
+                if x == 0:
+                    self.tbl_Rand.setItem(i,j,QTableWidgetItem(str(arrLow[i-1])))
+                    x+=1
+                else:
+                    self.tbl_Rand.setItem(i,j,QTableWidgetItem(str(arrUpp[i-1])))
+
+    def setHasilnya(self, var, centorid):
+        self.lbl_Cntr.setText(str(centorid))
+        self.lbl_Cntr.setStyleSheet('color: red')
+        self.lbl_varCentr.setText(str(var))
+
     def editLabel(self, TBB, TBA, TnBB, TnBA, Min, Max, nMin, nMax):
-        #TnBB.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TnBB.setText(str(nMin))
-        #TnBA.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TnBA.setText(str(nMax))
-        #TBB.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TBB.setText(str(Min))
-        #TBA.setStyleSheet(" font-size: 8pt; qproperty-alignment: AlignHCenter;")
         TBA.setText(str(Max))
     
     def hasilMyu(self, TPlot, bawah, atas):
@@ -195,10 +211,10 @@ class FuzzyDialog(QMainWindow):
             bawah.append(R4)
         else:
             atas.append(R4)
-        print('sebelum = ',bawah, atas)
+        #print('sebelum = ',bawah, atas)
         bawah = fgw.komposisi(bawah)
         atas = fgw.komposisi(atas)
-        print('sesudah = ', bawah, atas)
+        #print('sesudah = ', bawah, atas)
         return bawah, atas
 
     def letsPredict(self):
@@ -224,11 +240,14 @@ class FuzzyDialog(QMainWindow):
                 x+=1
             else:
                 self.FormHasil.drawPlot(3, self.FormHasil.lbl_BBz, self.FormHasil.lbl_BAz, self.FormHasil.lbl_Minz, self.FormHasil.lbl_Maxz, BB, BA, nBB, nBA, 0)
-        print('Array Hasil Fuzifikasi = ',self.arrFuz)
+        #print('Array Hasil Fuzifikasi = ',self.arrFuz)
         MClus1, MClus2 = self.impli(self.arrFuz)
+        self.FormHasil.editLabel(self.FormHasil.lbl_mBBz,self.FormHasil.lbl_mBAz,self.FormHasil.lbl_mnBBz,self.FormHasil.lbl_mnBAz,self.Tabel1.item(self.alamatRow[2],2).text(), self.Tabel1.item(self.alamatRow[2],4).text(), MClus1, MClus2)
         BBRand, BARand, Defuz = fgw.defuzifikasi(int(self.Tabel1.item(self.alamatRow[2],3).text()),int(self.Tabel1.item(self.alamatRow[2],5).text()), MClus1, MClus2)
-        print('data random',BBRand,',',BARand)
-        print('Hasil Prediksi =', Defuz)
+        self.FormHasil.randData(self.Tabel1.item(self.alamatRow[2],2).text(),self.Tabel1.item(self.alamatRow[2],4).text(), BBRand, BARand)
+        #print('data random',BBRand,',',BARand)
+        self.FormHasil.setHasilnya(self.Tabel1.item(self.alamatRow[2],1).text(), Defuz)
+        #print('Hasil Prediksi =', Defuz)
         self.FormHasil.show()
         self.close()
         
@@ -259,7 +278,7 @@ class FuzzyDialog(QMainWindow):
                 conq.append(self.Tabel1.item(i,4).text())
                 self.alamatRow[2] = i
                 self.tambahitem(conq,3)
-        print(self.alamatRow)
+        #print(self.alamatRow)
     
     def tambahitem(self, arrinput, col):
         if col == 1:
@@ -317,10 +336,27 @@ class MainDialog(QMainWindow):
         loadUi('UI/index.ui',self)
         self.btnOpen.clicked.connect(self.Open)
         self.btnNew.clicked.connect(self.change)
-        self.hasil = None
+        self.editvar = FuzzyDialog()
+        self.btnGetTemp.clicked.connect(self.writeDoc)
+
+    def writeDoc(self):
+        wb = Workbook()
+        ws = wb.add_sheet('Sheet1')
+        ws.write(0,0,'DATA FUZIFIKASI')
+        ws.write(1,0,'Tipe')
+        ws.write(2,0,'INPUT')
+        ws.write(3,0,'INPUT')
+        ws.write(4,0,'OUTPUT')
+        ws.write(1,1,'Variabel')
+        ws.write(1,2,'Batas Bawah')
+        ws.write(1,3,'Nilai BB')
+        ws.write(1,4,'Batas Atas')
+        ws.write(1,5,'Nilai BA')
+        flname, filter = QFileDialog.getSaveFileName(self, 'Save Template','C:\\', "Excel 97-2003 Workbook(*.xls)")
+        wb.save(flname)
 
     def Open(self):
-        flname, filter = QFileDialog.getOpenFileName(self, 'Open File','C:\\',"Excel file(*.xls)")
+        flname, filter = QFileDialog.getOpenFileName(self, 'Open Template','C:\\', "Excel 97-2003 Workbook(*.xls)")
         if flname:
             self.delimiter(flname)
         else:
@@ -345,14 +381,13 @@ class MainDialog(QMainWindow):
             natas.append(int(sheet.cell(i,3).value))
             bbawah.append(sheet.cell(i,4).value)
             nbawah.append(int(sheet.cell(i,5).value))
-        self.hasil = tipe + var + batas + natas + bbawah + nbawah
+        hasil = tipe + var + batas + natas + bbawah + nbawah
         #Hasilnya = self.hasil
+        self.editvar.writeTabel(hasil)
         self.change()
 
     def change(self):
-        print('Dari index: ', self.hasil)
-        self.editvar = FuzzyDialog()
-        self.editvar.writeTabel(self.hasil)
+        #print('Dari index: ', self.hasil)
         self.editvar.show()
         self.close()
 
