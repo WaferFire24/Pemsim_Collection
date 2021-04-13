@@ -47,7 +47,7 @@ def cariB(inpX, inpY, inpN):
 
 def inputdata():
     global n
-    print('Masukkan nilai a (konstanta)')
+    print('Masukkan nilai x')
     while True:
         entry = input('num : ')
         if entry == '':
@@ -56,7 +56,7 @@ def inputdata():
             x.append(int(entry))
         except:
             print("Angka tidak valid!")
-    print('Masukkan nilai b (koefisien)')
+    print('Masukkan nilai y')
     while True:
         entry = input('num : ')
         if entry == '':
